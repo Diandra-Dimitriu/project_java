@@ -41,12 +41,6 @@ This uses the Java extension which auto-handles the classpath.
 
 ## **How to Run (Terminal)**
 
-Assuming:
-
-* Sources are in `src/`
-* Packages look like `org.example`
-* Output goes to `bin/`
-
 ### **Compile**
 
 On Windows PowerShell / CMD / Linux / Mac:
@@ -81,20 +75,5 @@ java -jar RusselsSword.jar
 
 ---
 
-## **Why “Run Code” Might Not Work**
-
-VS Code's **Code Runner** plugin runs files like this:
-
-```
-java Main.java
-```
-
-This fails when:
-
-* you use packages (`package org.example;`)
-* you need a classpath
-* files aren’t pre-compiled
-
-Use **Run Java** instead, or disable Code Runner for Java.
 
 
