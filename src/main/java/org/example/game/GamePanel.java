@@ -2,7 +2,6 @@ package org.example.game;
 import org.example.combat.enemy;
 import javax.swing.*;
 import java.awt.*;
-import org.example.combat.character;
 
 public class GamePanel extends JPanel {
 

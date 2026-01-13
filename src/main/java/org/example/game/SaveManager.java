@@ -2,7 +2,6 @@ package org.example.game;
 
 import org.example.database.UserProgressDAO;
 import org.example.database.EnemyDAO;
-import org.example.combat.character;
 
 public class SaveManager {
 

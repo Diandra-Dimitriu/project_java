@@ -132,5 +132,57 @@ public class UserProgressDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        
+    }
+    public static void createNewSave(int userId) {
+        try (Connection conn = DatabaseManager.getConnection()) {
+            conn.setAutoCommit(false); // Start Transaction
+
+            // 1. Reset Stats (Level 1, HP 100, Zone 0)
+            // We use "INSERT OR REPLACE" to handle both new and existing users
+            String updateStats = """
+                INSERT INTO UserProgress (user_id, current_zone_id, hp, level) 
+                VALUES (?, 0, 100, 1)
+                ON CONFLICT(user_id) DO UPDATE SET 
+                    current_zone_id = 0,
+                    hp = 100,
+                    level = 1
+            """;
+            try (PreparedStatement stmt = conn.prepareStatement(updateStats)) {
+                stmt.setInt(1, userId);
+                stmt.executeUpdate();
+            }
+
+            // 2. Clear Defeated Bosses
+            try (PreparedStatement stmt = conn.prepareStatement(
+                    "DELETE FROM UserBossProgress WHERE user_id = ?")) {
+                stmt.setInt(1, userId);
+                stmt.executeUpdate();
+            }
+
+            // 3. Reset Abilities
+            try (PreparedStatement stmt = conn.prepareStatement(
+                    "DELETE FROM RusselAbilities WHERE user_id = ?")) {
+                stmt.setInt(1, userId);
+                stmt.executeUpdate();
+            }
+            
+            // 4. Re-add default ability (MANUALLY, using the same 'conn')
+            // We do this here to avoid the "Database Locked" error
+            try (PreparedStatement stmt = conn.prepareStatement(
+                    "INSERT INTO RusselAbilities (user_id, ability_name, damage) VALUES (?, ?, ?)")) {
+                stmt.setInt(1, userId);
+                stmt.setString(2, "Slash");
+                stmt.setInt(3, 20);
+                stmt.executeUpdate();
+            }
+
+            conn.commit(); // Commit ALL changes
+            System.out.println("✅ Save file successfully wiped for New Game.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

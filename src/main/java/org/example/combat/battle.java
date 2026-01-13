@@ -1,8 +1,6 @@
 package org.example.combat;
 
 import java.util.Map;
-import java.util.Scanner;
-import static org.example.combat.randomy.*;
 
 public class battle {
 

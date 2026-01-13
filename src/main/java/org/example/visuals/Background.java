@@ -2,14 +2,8 @@ package org.example.visuals;
 
 import org.example.combat.main_combat;
 import org.example.combat.output;
-import org.example.combat.input;
 
-import org.example.combat.battle;
-import org.example.combat.character;
 import org.example.combat.enemy;
-import org.example.combat.Guardian;
-import org.example.combat.Warden;
-import org.example.combat.Strigoi;
 
 import javax.swing.*;
 import java.awt.*;

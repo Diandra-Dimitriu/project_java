@@ -58,7 +58,10 @@ public class menu extends JFrame {
 
         // New Game
         newGameBtn.addActionListener(e -> {
+            org.example.database.UserProgressDAO.createNewSave(currentUserId);
+            org.example.combat.main_combat.chara = new character();
             SwingUtilities.invokeLater(() -> {
+                
                 JFrame gameFrame = new JFrame("Russel's Adventure");
                 gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
